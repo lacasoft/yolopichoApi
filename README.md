@@ -14,7 +14,7 @@ Necesitas tener instalado PHP (versión 8.1 o superior) y Composer para instalar
 
 1. Clona el repositorio en tu máquina local:
 
-git clone https://github.com/tu-usuario/platidonaciones-api.git
+git clone https://github.com/lacasoft/yolopichoApi.git
 
 2. Navega al directorio del proyecto:
 
