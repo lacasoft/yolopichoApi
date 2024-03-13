@@ -14,15 +14,15 @@ Necesitas tener instalado PHP (versión 8.1 o superior) y Composer para instalar
 
 1. Clona el repositorio en tu máquina local:
 
-git clone https://github.com/lacasoft/yolopichoApi.git
+`git clone https://github.com/lacasoft/yolopichoApi.git`
 
 2. Navega al directorio del proyecto:
 
-cd yolopichoApi
+`cd yolopichoApi`
 
 3. Instala las dependencias de PHP con Composer:
 
-composer install
+`composer install`
 
 4. Crea un archivo `.env` en el directorio raíz del proyecto y ajusta tus variables de entorno.
 
