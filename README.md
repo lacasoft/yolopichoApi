@@ -1,4 +1,4 @@
-# PlatiDonaciones API
+# YoLoPicho API
 
 La API YoLoPicho es una solución desarrollada utilizando el microframework Slim 4, diseñada para facilitar y gestionar donaciones de platillos de comida a personas en situación vulnerable. Esta plataforma actúa como un puente entre donantes, que pueden ser restaurantes o individuos, y las comunidades que más lo necesitan.
 
