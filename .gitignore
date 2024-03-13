@@ -1,0 +1,30 @@
+/vendor/
+/node_modules/
+
+# Archivos de configuración sensibles
+/.env
+
+# Directorios de caché
+/cache/
+/tmp/
+
+# Archivos temporales que pueden ser creados por el editor
+*.swp
+*.swo
+*.tmp
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Directorios específicos del entorno de desarrollo
+/nbproject/
+/.idea/
+/.vscode/
+
+# Archivos específicos de ciertas herramientas
+/composer.lock
+/composer.phar
+
+# Archivos de log
+*.log

@@ -1,0 +1,95 @@
+{
+    "name": "lacasoft/yolopicho",
+    "type": "library",
+    "description": "API de Yo Lo Picho",
+    "keywords": ["yolopicho","micro","api","router"],
+    "homepage": "https://www.yolopicho.com",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "LACA",
+            "email": "laca@laca-soft.com",
+            "homepage": "https://laca-soft.com"
+        }
+    ],
+    "support": {
+        "docs": "https://www.slimframework.com/docs/v4/",
+        "forum": "https://discourse.slimframework.com/",
+        "irc": "irc://irc.freenode.net:6667/slimphp",
+        "issues": "https://github.com/slimphp/Slim/issues",
+        "rss": "https://www.slimframework.com/blog/feed.rss",
+        "slack": "https://slimphp.slack.com/",
+        "source": "https://github.com/slimphp/Slim",
+        "wiki": "https://github.com/slimphp/Slim/wiki"
+    },
+    "require": {
+        "php": "^7.4 || ^8.0",
+        "ext-json": "*",
+        "doctrine/orm": "^2.17",
+        "firebase/php-jwt": "^6.10",
+        "monolog/monolog": "^3.5",
+        "nikic/fast-route": "^1.3",
+        "nyholm/psr7": "^1.8",
+        "nyholm/psr7-server": "^1.1",
+        "php-di/php-di": "^7.0",
+        "phpspec/prophecy": "^1.17",
+        "psr/container": "^1.0 || ^2.0",
+        "psr/http-factory": "^1.0",
+        "psr/http-message": "^1.1",
+        "psr/http-server-handler": "^1.0",
+        "psr/http-server-middleware": "^1.0",
+        "psr/log": "^1.1 || ^2.0 || ^3.0",
+        "ramsey/uuid": "^4.7",
+        "respect/validation": "^2.3",
+        "selective/basepath": "^2.2",
+        "symfony/cache": "^6.3",
+        "vlucas/phpdotenv": "^5.6"
+    },
+    "require-dev": {
+        "ext-simplexml": "*",
+        "adriansuter/php-autoload-override": "^1.4",
+        "friendsofphp/php-cs-fixer": "^3.38",
+        "guzzlehttp/psr7": "^2.5",
+        "httpsoft/http-message": "^1.1",
+        "httpsoft/http-server-request": "^1.1",
+        "laminas/laminas-diactoros": "^2.17",
+        "phpspec/prophecy-phpunit": "^2.0",
+        "phpstan/phpstan": "^1.10",
+        "phpunit/phpunit": "^9.6",
+        "slim/http": "^1.3",
+        "slim/psr7": "^1.6",
+        "squizlabs/php_codesniffer": "^3.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Slim\\": "Slim",
+            "App\\": "app/",
+            "Yolopicho\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Slim\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": [
+            "@phpunit",
+            "@phpcs",
+            "@phpstan"
+        ],
+        "phpunit": "phpunit",
+        "phpcs": "phpcs",
+        "phpstan": "phpstan --memory-limit=-1",
+        "cs-fixer": "./vendor/bin/php-cs-fixer fix --config=app/Tools/.php-cs-fixer.php"
+    },
+    "suggest": {
+        "ext-simplexml": "Needed to support XML format in BodyParsingMiddleware",
+        "ext-xml": "Needed to support XML format in BodyParsingMiddleware",
+        "slim/psr7": "Slim PSR-7 implementation. See https://www.slimframework.com/docs/v4/start/installation.html for more information.",
+        "php-di/php-di": "PHP-DI is the recommended container library to be used with Slim"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
