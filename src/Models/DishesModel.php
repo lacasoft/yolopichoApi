@@ -31,7 +31,7 @@ class DishesModel
             return $store;
 
         } catch (\PDOException $e) {
-            return $e;
+            throw new \Exception('Ocurrió un error: ' . $e->getMessage(), 500);
         }
     }
 
@@ -56,7 +56,7 @@ class DishesModel
             return $dishes;
 
         } catch (\PDOException $e) {
-            return $e;
+            throw new \Exception('Ocurrió un error: ' . $e->getMessage(), 500);
         }
     }
 
@@ -86,7 +86,7 @@ class DishesModel
 
         } catch (\PDOException $e) {
             $conn->rollBack();
-            return $e;
+            throw new \Exception('Ocurrió un error: ' . $e->getMessage(), 500);
         }
     }
 
@@ -121,7 +121,7 @@ class DishesModel
 
         } catch (\PDOException $e) {
             $conn->rollBack();
-            return $e;
+            throw new \Exception('Ocurrió un error: ' . $e->getMessage(), 500);
         }
     }
 

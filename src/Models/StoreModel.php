@@ -14,7 +14,7 @@ class Status {
 
 class StoreModel
 {
-    private static function fetchById(string $storeId)
+    public static function fetchById(string $storeId)
     {
         $sql = "SELECT sp.*, ad.* FROM StoreProfile sp
             INNER JOIN Store s ON s.id = sp.storeId
@@ -38,7 +38,7 @@ class StoreModel
             return $store;
 
         } catch (\PDOException $e) {
-            return $e;
+            throw new \Exception('Ocurrió un error: ' . $e->getMessage(), 500);
         }
     }
 
@@ -61,7 +61,7 @@ class StoreModel
             return $commerces;
 
         } catch (\PDOException $e) {
-            return $e;
+            throw new \Exception('Ocurrió un error: ' . $e->getMessage(), 500);
         }
     }
 
@@ -93,7 +93,7 @@ class StoreModel
             return $commerces;
 
         } catch (\PDOException $e) {
-            return $e;
+            throw new \Exception('Ocurrió un error: ' . $e->getMessage(), 500);
         }
     }
 
@@ -125,7 +125,7 @@ class StoreModel
             return $commerces;
 
         } catch (\PDOException $e) {
-            return $e;
+            throw new \Exception('Ocurrió un error: ' . $e->getMessage(), 500);
         }
     }
 
@@ -156,7 +156,7 @@ class StoreModel
             return $commerces;
 
         } catch (\PDOException $e) {
-            return $e;
+            throw new \Exception('Ocurrió un error: ' . $e->getMessage(), 500);
         }
     }
 
@@ -235,7 +235,7 @@ class StoreModel
 
         } catch (\PDOException $e) {
             $conn->rollBack();
-            return $e;
+            throw new \Exception('Ocurrió un error: ' . $e->getMessage(), 500);
         }
     }
 
@@ -261,7 +261,7 @@ class StoreModel
             return $store;
 
         } catch (\PDOException $e) {
-            return $e;
+            throw new \Exception('Ocurrió un error: ' . $e->getMessage(), 500);
         }
     }
 
@@ -333,7 +333,7 @@ class StoreModel
 
         } catch (\PDOException $e) {
             $conn->rollBack();
-            return $e;
+            throw new \Exception('Ocurrió un error: ' . $e->getMessage(), 500);
         }
     }
 
@@ -371,7 +371,7 @@ class StoreModel
             $db = null;
 
         } catch (\PDOException $e) {
-            return $e;
+            throw new \Exception('Ocurrió un error: ' . $e->getMessage(), 500);
         }
 
     }
@@ -404,7 +404,7 @@ class StoreModel
             $db = null;
 
         } catch (\PDOException $e) {
-            return $e;
+            throw new \Exception('Ocurrió un error: ' . $e->getMessage(), 500);
         }
     }
 

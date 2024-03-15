@@ -7,6 +7,7 @@ deny from all
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
+  RewriteBase /api/
   RewriteRule ^$ public/ [L]
   RewriteRule (.*) public/$1 [L]
 </IfModule>

@@ -23,7 +23,7 @@ class CityModel
             return $categories;
 
         } catch (\PDOException $e) {
-            return $e;
+            throw new \Exception('Ocurrió un error: ' . $e->getMessage(), 500);
         }
     }
 
@@ -43,7 +43,7 @@ class CityModel
             return $categories;
 
         } catch (\PDOException $e) {
-            return $e;
+            throw new \Exception('Ocurrió un error: ' . $e->getMessage(), 500);
         }
     }
 }

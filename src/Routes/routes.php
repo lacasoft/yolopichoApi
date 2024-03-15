@@ -1,7 +1,8 @@
 <?php
+
+use Slim\App;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Slim\Factory\AppFactory;
 
 use Yolopicho\Middlewares\JwtMiddleware;
 use Yolopicho\Middlewares\ApiKeyMiddleware;
@@ -12,8 +13,8 @@ use Yolopicho\Controllers\CityController;
 use Yolopicho\Controllers\StoreController;
 use Yolopicho\Controllers\DonationController;
 use Yolopicho\Controllers\DishesController;
+use Yolopicho\Controllers\DeliveryController;
 
-$app = AppFactory::create();
 
 // Ruta raíz para verificar la funcionalidad básica
 $app->get('/', function (Request $request, Response $response) {
@@ -23,10 +24,10 @@ $app->get('/', function (Request $request, Response $response) {
 
 // Rutas relacionadas con las categorías de comercios
 $app->group('/catalog', function ($app) {
-  $app->get('/categories', CategoryController::class . ':getCategories');
-  $app->get('/states', StateController::class . ':getStates');
-  $app->get('/cities', CityController::class . ':getCities');
-  $app->get('/{stateId}/cities', CityController::class . ':getCitiesByState');
+    $app->get('/categories', CategoryController::class . ':getCategories');
+    $app->get('/states', StateController::class . ':getStates');
+    $app->get('/cities', CityController::class . ':getCities');
+    $app->get('/{stateId}/cities', CityController::class . ':getCitiesByState');
 })->add(new ApiKeyMiddleware());
 
 // Rutas relacionadas con el acceso
@@ -37,7 +38,7 @@ $app->group('/stores', function ($app) {
 
 // Rutas relacionadas con los comercios
 $app->group('/stores', function ($app) {
-    $app->get('', StoreController::class . ':getStores');
+    $app->get('/{storeId}', StoreController::class . ':getStores');
     $app->patch('/{storeId}', StoreController::class . ':updateStore');
     $app->patch('/{storeId}/password', StoreController::class . ':updateStorePassword');
     $app->patch('/{storeId}/logo', StoreController::class . ':updateStoreLogo');
@@ -58,4 +59,9 @@ $app->group('/dishes', function ($app) {
     $app->get('/{storeId}', DishesController::class . ':getDishes');
     $app->post('/{storeId}', DishesController::class . ':addDishes');
     $app->delete('/{storeId}/{dishId}', DishesController::class . ':deleteDish');
+})->add(new JwtMiddleware());
+
+// Rutas relacionadas con el las entregas (delivery)
+$app->group('/deliveries', function ($app) {
+    $app->post('/{storeId}', DeliveryController::class . ':addDelivery');
 })->add(new JwtMiddleware());

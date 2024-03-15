@@ -22,14 +22,17 @@ AppFactory::setResponseFactory($psr17Factory);
 // Crear la aplicación Slim
 $app = AppFactory::create();
 
+// Definir Sub Directorio
+//$app->setBasePath('/api');
+
 // Agregar middleware
 $app->add(new BasePathMiddleware($app));
 $app->addErrorMiddleware(true, true, true);
 $app->addBodyParsingMiddleware();
 $app->addRoutingMiddleware(true, true);
 
-// Cargar las rutas de la aplicación
-require __DIR__ . '/../app/Routes/routes.php';
+// Cargar las rutas
+require __DIR__ . '/../src/Routes/routes.php';
 
 // Ejecutar la aplicación
 $app->run();

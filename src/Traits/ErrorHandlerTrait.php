@@ -15,7 +15,7 @@ trait ErrorHandlerTrait
             $code = $response->getStatusCode();
         } catch (\PDOException $e) {
             $responseBody = ['error' => 'Error al acceder a la base de datos: ' . $e->getMessage()];
-            $code = 500;
+            $code = $e->getCode();
         } catch (\Exception $e) {
             $responseBody = ['error' => 'Ocurrió un error: ' . $e->getMessage()];
             $code = $e->getCode();

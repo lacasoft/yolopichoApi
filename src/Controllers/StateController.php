@@ -16,7 +16,8 @@ class StateController
     public function getStates(Request $request, Response $response): Response
     {
         return $this->withTryCatch($request, $response, function() {
-            return State::fetchAll();
+            $states = State::fetchAll();
+            return $states;
         });
     }
 }

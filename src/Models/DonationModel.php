@@ -81,7 +81,7 @@ class DonationModel
             return $donator;
 
         } catch (\PDOException $e) {
-            return $e;
+            throw new \Exception('Ocurrió un error: ' . $e->getMessage(), 500);
         }
     }
 
@@ -118,7 +118,7 @@ class DonationModel
             return $donation;
 
         } catch (\PDOException $e) {
-            return $e;
+            throw new \Exception('Ocurrió un error: ' . $e->getMessage(), 500);
         }
     }
 
@@ -189,7 +189,7 @@ class DonationModel
 
         } catch (\PDOException $e) {
             $conn->rollBack();
-            return $e;
+            throw new \Exception('Ocurrió un error: ' . $e->getMessage(), 500);
         }
     }
 
@@ -242,7 +242,7 @@ class DonationModel
             }
         } catch (\PDOException $e) {
             $conn->rollBack();
-            return $e;
+            throw new \Exception('Ocurrió un error: ' . $e->getMessage(), 500);
         }
     }
 

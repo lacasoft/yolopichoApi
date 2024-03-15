@@ -15,10 +15,23 @@ class StoreController
 {
     use ErrorHandlerTrait;
 
-    public function getCommerces(Request $request, Response $response)
+    public function getStores(Request $request, Response $response, array $args)
     {
+        return $this->withTryCatch($request, $response, function() use ($request, $args) {
+
+            $data = $request->getParsedBody();
+            $storeId = $args["storeId"];
+
+            $storeIdToken = $request->getAttribute('storeIdToken');
+            if($storeIdToken != $storeId){
+                throw new \Exception("no puedes modificar otro perfil", 400);
+            }
+
+            return $commerces = Store::fetchById($storeId);
+        });
+
         try {
-            $commerces = Store::fetchall();
+
             $response->getBody()->write(json_encode($commerces));
             return $response
                 ->withHeader('content-type', 'application/json')
@@ -142,8 +155,8 @@ class StoreController
             if (!v::notEmpty()->stringType()->length(2, 255)->validate($streetAddress)) {
                 $errors[] = "La dirección debe tener entre 2 y 255 caracteres.";
             }
-            if (!v::notEmpty()->stringType()->length(2, 25)->validate($streetNumber)) {
-                $errors[] = "El número es requerido y debe tener entre 2 y 25 caracteres.";
+            if (!v::notEmpty()->stringType()->validate($streetNumber)) {
+                $errors[] = "El número es requerido";
             }
             if (!v::number()->validate($cityId)) {
                 $errors[] = "El ID de ciudad debe ser numérico.";

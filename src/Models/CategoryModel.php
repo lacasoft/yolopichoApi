@@ -13,14 +13,12 @@ class CategoryModel
         try {
             $db = new Db();
             $conn = $db->connect();
-            $result = $conn->query($sql);
-            $categories = $result->fetchAll(PDO::FETCH_OBJ);
-
-            $conn = null;
-
+            $stmt = $conn->query($sql);
+            $categories = $stmt->fetchAll(PDO::FETCH_OBJ);
+            $db = null;
             return $categories;
         } catch (\PDOException $e) {
-            throw new \Exception('Error al recuperar categorías: ' . $e->getMessage());
+            throw new \Exception('Error al recuperar categorías: ' . $e->getMessage(), 400);
         }
     }
 }

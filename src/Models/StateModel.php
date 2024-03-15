@@ -10,20 +10,15 @@ class StateModel
     public static function fetchall()
     {
         $sql = "SELECT * FROM State";
-
         try {
             $db = new Db();
             $conn = $db->connect();
-            $result = $conn->query($sql);
-            //if($result->rowCount() > 0)
-            $categories = $result->fetchAll(PDO::FETCH_OBJ);
-            $result = null;
+            $stmt = $conn->query($sql);
+            $states = $stmt->fetchAll(PDO::FETCH_OBJ);
             $db = null;
-
-            return $categories;
-
+            return $states;
         } catch (\PDOException $e) {
-            return $e;
+            throw new \Exception('Error al recuperar categorías: ' . $e->getMessage(), 400);
         }
     }
 }
