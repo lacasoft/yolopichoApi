@@ -4,12 +4,12 @@ namespace Yolopicho\Controllers;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
 use Respect\Validation\Validator as v;
 
 use Yolopicho\Models\StoreModel as Store;
 use Yolopicho\Traits\ErrorHandlerTrait;
+use Yolopicho\Utilities\AesEncryptor;
+use Yolopicho\Utilities\JwtEncryptor;
 
 class StoreController
 {
@@ -170,7 +170,7 @@ class StoreController
                 throw new \Exception($errorMessage,400);
             }
 
-            $aesPassword = $this->encryptAES($password);
+            $aesPassword = AesEncryptor::encryptAES($password);
 
             return Store::add($name, $categoryId, $email, $aesPassword, $phone, $streetAddress, $streetNumber, $streetIntNumber, $cityId, $stateId);
         });
@@ -200,7 +200,7 @@ class StoreController
                 throw new \Exception($errorMessage,400);
             }
 
-            $aesPassword = $this->encryptAES($password);
+            $aesPassword = AesEncryptor::encryptAES($password);
 
             $store = Store::login($email);
 
@@ -208,7 +208,7 @@ class StoreController
                 throw new \Exception("No se encuentra el comercio",400);
             }
 
-            $token = $this->generateJwtToken($store->id, $store->email);
+            $token = JwtEncryptor::generateJwtToken($store->id, $store->email);
 
             return ['token' => $token];
         });
@@ -266,7 +266,7 @@ class StoreController
                 throw new \Exception($errorMessage, 400);
             }
 
-            $aesPassword = $this->encryptAES($password);
+            $aesPassword = AesEncryptor::encryptAES($password);
 
             Store::updatePassword($storeId, $aesPassword);
         });
@@ -299,36 +299,5 @@ class StoreController
         });
     }
 
-    public function encryptAES(string $data) {
-        $cipher = "aes-256-cbc";
-        $options = 0;
-        $aesKey = getenv('AES_KEY');
-        $iv = getenv('AES_IV');
-        return base64_encode(openssl_encrypt($data, $cipher, $aesKey, $options, $iv));
-    }
 
-    public function decryptAES(string $data) {
-        $cipher = "aes-256-cbc";
-        $options = 0;
-        $aesKey = getenv('AES_KEY');
-        $iv = getenv('AES_IV');
-        return openssl_decrypt(base64_decode($data), $cipher, $aesKey, $options, $iv);
-    }
-
-    public function generateJwtToken(string $userId, string $userEmail)
-    {
-        $issuedAt = time();
-        $expiration = getenv('EXPIRATION');
-        $expirationTime = $issuedAt + $expiration;
-        $payload = array(
-            'storeId' => $userId,
-            'storeEmail' => $userEmail,
-            'iat' => $issuedAt,
-            'exp' => $expirationTime
-        );
-        $secretKey = getenv('JWT_SECRET_KEY');
-        $algorithm = getenv('ALGORITHM');
-        $jwt = JWT::encode($payload, $secretKey, $algorithm);
-        return $jwt;
-    }
 }

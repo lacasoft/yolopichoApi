@@ -7,6 +7,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Respect\Validation\Validator as v;
 
 use Yolopicho\Models\DonationModel as Donation;
+use Yolopicho\Utilities\EmailSender;
 use Yolopicho\Traits\ErrorHandlerTrait;
 
 class DonationController
@@ -47,6 +48,8 @@ class DonationController
                 throw new \Exception("Se requieren todos los campos");
             }
 
+            $emailSender = new EmailSender();
+
             $email = $data["email"];
             $amount = $data["amount"];
 
@@ -65,6 +68,13 @@ class DonationController
             }
 
             Donation::add($email, $storeId, $amount);
+
+            $to = $email;
+            $toName = 'Picher';
+            $subject = 'Gracias por Apoyar con YoLoPicho';
+            $body = '<h1>Gracias por Apoyar!</h1><p>Recibimos tu donacion por <b>'. $amount .'</b></p>';
+
+            $emailSender->send($to, $toName, $subject, $body);
         });
     }
 

@@ -7,20 +7,23 @@ use PDO;
 
 class CityModel
 {
-    public static function fetchall()
+    public static function fetchall(array $queryFilters)
     {
         $sql = "SELECT c.* FROM City c";
 
+        if (!empty($queryFilters['stateId'])) {
+            $stateId = $queryFilters['stateId'];
+            $sql .= " WHERE c.stateId = $stateId";
+        }
         try {
             $db = new Db();
             $conn = $db->connect();
             $result = $conn->query($sql);
-            //if($result->rowCount() > 0)
-            $categories = $result->fetchAll(PDO::FETCH_OBJ);
+            $city = $result->fetchAll(PDO::FETCH_OBJ);
             $result = null;
             $db = null;
 
-            return $categories;
+            return $city;
 
         } catch (\PDOException $e) {
             throw new \Exception('Ocurrió un error: ' . $e->getMessage(), 500);

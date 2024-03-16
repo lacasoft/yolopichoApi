@@ -15,8 +15,11 @@ class CityController
 
     public function getCities(Request $request, Response $response): Response
     {
-        return $this->withTryCatch($request, $response, function() {
-            return City::fetchAll();
+        return $this->withTryCatch($request, $response, function() use ($request){
+
+            $queryFilters = $request->getQueryParams();
+
+            return City::fetchAll($queryFilters);
         });
     }
 
@@ -31,6 +34,7 @@ class CityController
             if (!$stateIdValidator) {
                 throw new \Exception("El campo es inválido. Debe ser un valor numerico.", 400);
             }
+
             return City::fetchByStateId($stateId);
         });
     }

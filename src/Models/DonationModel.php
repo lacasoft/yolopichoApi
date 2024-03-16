@@ -28,7 +28,6 @@ class DonationModel
             $startDate = $queryFilters['date'] . ' 00:00:00';
             $endDate = $queryFilters['date'] . ' 23:59:59';
 
-            // Ajusta tu consulta para filtrar por el rango de fecha
             $sql .= " AND don.createdAt BETWEEN STR_TO_DATE(:startDate, '%Y-%m-%d %H:%i:%s') AND STR_TO_DATE(:endDate, '%Y-%m-%d %H:%i:%s')";
         }
 
@@ -208,17 +207,20 @@ class DonationModel
                 $conn = $db->connect();
                 $conn->beginTransaction();
 
+                $statusOk = Status::APPROVE;
 
                 $sql = "UPDATE Donations SET
                 status = :status,
                 note = :note
-                WHERE id = :id";
+                WHERE id = :id
+                AND status = :statusOk";
 
                 $stmt = $conn->prepare($sql);
 
                 $stmt->bindParam(':status', $status, PDO::PARAM_STR);
                 $stmt->bindParam(':note', $note, PDO::PARAM_STR);
                 $stmt->bindParam(':id', $donationId, PDO::PARAM_STR);
+                $stmt->bindParam(':statusOk', $statusOk, PDO::PARAM_STR);
 
                 $result = $stmt->execute();
 
